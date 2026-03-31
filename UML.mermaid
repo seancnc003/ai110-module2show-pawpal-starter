@@ -1,33 +1,37 @@
 classDiagram
-    class Owner {
-        +String name
-        +int time_available
-        +List~Pet~ pets
-        +List~Task~ tasks
-        +add_pet(pet: Pet)
-        +remove_pet(pet: Pet)
-        +add_task(task: Task)
-        +remove_task(task: Task)
+    class Task {
+        +String description
+        +float duration
+        +int priority
+        +String due_time
+        +bool completed
+        +toggle_complete()
     }
 
     class Pet {
         +String name
         +String animal_type
+        +List~Task~ tasks
+        +add_task(task: Task)
+        +remove_task(task: Task)
+        +list_tasks() List~Task~
     }
 
-    class Task {
-        +String task_type
-        +int duration
-        +int priority
-        +Pet pet
+    class Owner {
+        +String name
+        +int time_available
+        +List~Pet~ pets
+        +add_pet(pet: Pet)
+        +remove_pet(pet: Pet)
+        +get_all_tasks() List~Task~
     }
 
     class Scheduler {
-        +generate_plan(tasks: List~Task~, time_available: int) List~Task~
+        +Owner owner
+        +generate_plan() List~Task~
         +explain_plan(plan: List~Task~) String
     }
 
     Owner "one" --> "many" Pet : has
-    Owner "one" --> "many" Task : has
-    Task "many" --> "one" Pet : for
-    Owner ..> Scheduler : uses
+    Pet "one" --> "many" Task : has
+    Scheduler --> Owner : retrieves tasks from

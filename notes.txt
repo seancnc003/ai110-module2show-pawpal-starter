@@ -36,13 +36,16 @@ building blocks
 
 
 design decisions:
-    * originally, scheduler held the task list and each owner had their own scheduler
-    * problem: task ownership was indirect (owner -> scheduler -> tasks)
-    * fix: moved task list to owner, made scheduler a stateless planning tool
-    * result: owner owns their data, scheduler is reusable across multiple owners
+    * v1: scheduler held the task list, each owner had their own scheduler
+    * v2: moved task list to owner, made scheduler stateless
+    * v3 (current): moved task list to pet, matching rubric requirement
+        - tasks belong to the pet they're about (walk the dog -> belongs to the dog)
+        - owner collects tasks across all pets via get_all_tasks()
+        - scheduler takes an owner and retrieves tasks through it
+    * also added to Task: due_time, completed status, mark_complete method (rubric required)
+    * Pet is now a regular class (not dataclass) since it has behavior methods
 
 
 implementation TODOs:
-    * validate that a task's pet belongs to the owner before adding (enforce in add_task)
-    * decide how generate_plan communicates dropped tasks that don't fit in time_available
-    * decide if explain_plan needs access to the original task list or just the final plan
+    * decide how generate_plan handles tasks that don't fit in time_available
+    * decide if explain_plan needs the original task list to compare against the plan
