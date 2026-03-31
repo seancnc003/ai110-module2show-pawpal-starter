@@ -49,3 +49,12 @@ design decisions:
 implementation TODOs:
     * decide how generate_plan handles tasks that don't fit in time_available
     * decide if explain_plan needs the original task list to compare against the plan
+
+
+test plan:
+    1. sorting correctness (happy path) - tasks added out of order come back in chronological order
+    2. recurring daily task (happy path) - completing a daily task advances due date by 1 day, stays incomplete
+    3. conflict detection overlap (happy path) - two tasks with overlapping durations produce a warning
+    4. pet with no tasks (edge case) - generating a plan with an empty pet doesn't crash
+    5. filter by pet (happy path) - only returns tasks for the named pet
+    6. exact same time (edge case) - two tasks at identical start times are flagged as conflicts

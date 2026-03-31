@@ -32,6 +32,27 @@ The Scheduler class includes the following algorithmic features:
 - **Recurring tasks**: Tasks with a "daily" or "weekly" frequency auto-advance their due date when completed using `timedelta`, staying in the schedule indefinitely.
 - **Conflict detection**: The scheduler checks for overlapping task durations (not just exact time matches) and returns warning messages for any conflicts found.
 
+## Testing PawPal+
+
+Run the test suite with:
+
+```bash
+python -m pytest
+```
+
+The tests cover 8 behaviors across happy paths and edge cases:
+
+- Toggle task completion
+- Adding tasks increases pet's task count
+- Sorting correctness (tasks added out of order return in chronological order)
+- Recurring daily tasks (due date advances by 1 day, stays incomplete)
+- Conflict detection with overlapping durations
+- Generating a plan with a pet that has no tasks
+- Filtering tasks by pet name
+- Exact same time conflict detection
+
+**Confidence Level: 4/5** -- core scheduling logic is well-tested, but edge cases like invalid time formats or removing pets with active tasks are not yet covered.
+
 ## Getting started
 
 ### Setup
