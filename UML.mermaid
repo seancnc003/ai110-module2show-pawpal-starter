@@ -1,0 +1,30 @@
+classDiagram
+    class Owner {
+        +String name
+        +List~Pet~ pets
+        +List~Task~ tasks
+        +add_pet(pet: Pet)
+        +add_task(task: Task)
+    }
+
+    class Pet {
+        +String name
+        +String animal_type
+    }
+
+    class Task {
+        +String task_type
+        +int duration
+        +int priority
+        +Pet pet
+    }
+
+    class Scheduler {
+        +generate_plan(tasks: List~Task~, time_available: int) List~Task~
+        +explain_plan(plan: List~Task~) String
+    }
+
+    Owner "1" --> "*" Pet : has
+    Owner "1" --> "*" Task : has
+    Task "*" --> "1" Pet : for
+    Owner ..> Scheduler : uses

@@ -1,0 +1,42 @@
+an assistant for pet care:
+    * track pet care tasks (walks, feeding, etc)
+    * consider constraints (time, priority, etc)
+    * produce a daily plan and explanation
+
+
+coding tasks: 
+    1. design the UML system
+    2. implement in Python
+    3. connect it to Streamlit UI
+
+
+core actions: 
+    1. add a pet
+    2. schedule a walk 
+    3. see today's tasks
+
+
+building blocks
+    1. owner
+        * contains subclass pet (can be many)
+        * name 
+        * schedule 
+        * can perform task
+
+    
+    2. pet
+        * animal type 
+        * name 
+
+    3. task 
+        * type of task (walking, feeding, etc.)
+
+    4. scheduler
+        * list of tasks
+
+
+design decisions:
+    * originally, scheduler held the task list and each owner had their own scheduler
+    * problem: task ownership was indirect (owner -> scheduler -> tasks)
+    * fix: moved task list to owner, made scheduler a stateless planning tool
+    * result: owner owns their data, scheduler is reusable across multiple owners
