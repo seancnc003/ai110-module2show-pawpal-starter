@@ -22,6 +22,16 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Smarter Scheduling
+
+The Scheduler class includes the following algorithmic features:
+
+- **Sort by time**: Tasks are sorted by due time using Python's `sorted()` with a lambda key, ensuring the schedule follows chronological order.
+- **Filter by status**: Completed tasks are filtered out of the daily plan so only pending tasks appear.
+- **Filter by pet**: Tasks can be viewed per pet, allowing owners to see what each pet needs individually.
+- **Recurring tasks**: Tasks with a "daily" or "weekly" frequency auto-advance their due date when completed using `timedelta`, staying in the schedule indefinitely.
+- **Conflict detection**: The scheduler checks for overlapping task durations (not just exact time matches) and returns warning messages for any conflicts found.
+
 ## Getting started
 
 ### Setup

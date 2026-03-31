@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta
 
 
 @dataclass
@@ -7,11 +8,21 @@ class Task:
     duration: float
     priority: int
     due_time: str
+    frequency: str = "none"
     completed: bool = False
 
     def toggle_complete(self):
-        """Toggle the task's completion status."""
-        self.completed = not self.completed
+        """Toggle completion. Recurring tasks auto-advance to the next due date."""
+        if not self.completed and self.frequency != "none":
+            current = datetime.strptime(self.due_time, "%Y-%m-%d %H:%M")
+            if self.frequency == "daily":
+                next_due = current + timedelta(days=1)
+            elif self.frequency == "weekly":
+                next_due = current + timedelta(weeks=1)
+            self.due_time = next_due.strftime("%Y-%m-%d %H:%M")
+            # stays incomplete — it's a new occurrence
+        else:
+            self.completed = not self.completed
 
 
 class Pet:
@@ -63,12 +74,42 @@ class Scheduler:
     def __init__(self, owner: Owner):
         self.owner = owner
 
+    def sort_by_time(self, tasks: list[Task]) -> list[Task]:
+        """Sort tasks by due time in HH:MM format."""
+        return sorted(tasks, key=lambda task: task.due_time)
+
+    def filter_by_pet(self, pet_name: str) -> list[Task]:
+        """Return tasks belonging to a specific pet."""
+        for pet in self.owner.pets:
+            if pet.name == pet_name:
+                return pet.list_tasks()
+        return []
+
+    def filter_by_status(self, completed: bool) -> list[Task]:
+        """Return tasks filtered by completion status."""
+        all_tasks = self.owner.get_all_tasks()
+        return [task for task in all_tasks if task.completed == completed]
+
     def generate_plan(self) -> list[Task]:
         """Filter completed tasks and sort remaining by due time."""
-        all_tasks = self.owner.get_all_tasks()
-        incomplete = [task for task in all_tasks if not task.completed]
-        sorted_tasks = sorted(incomplete, key=lambda task: task.due_time)
-        return sorted_tasks
+        incomplete = self.filter_by_status(completed=False)
+        return self.sort_by_time(incomplete)
+
+    def detect_conflicts(self) -> list[str]:
+        """Check for overlapping tasks and return warning messages."""
+        tasks = self.generate_plan()
+        warnings = []
+        for i in range(len(tasks)):
+            start_a = datetime.strptime(tasks[i].due_time, "%Y-%m-%d %H:%M")
+            end_a = start_a + timedelta(minutes=tasks[i].duration)
+            for j in range(i + 1, len(tasks)):
+                start_b = datetime.strptime(tasks[j].due_time, "%Y-%m-%d %H:%M")
+                if start_b < end_a:
+                    warnings.append(
+                        f"Conflict: '{tasks[i].description}' ({tasks[i].due_time}, {tasks[i].duration} min) "
+                        f"overlaps with '{tasks[j].description}' ({tasks[j].due_time}, {tasks[j].duration} min)"
+                    )
+        return warnings
 
     def explain_plan(self, plan: list[Task]) -> str:
         """Return a formatted string explaining the scheduled plan."""

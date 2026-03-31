@@ -42,10 +42,25 @@ to be addressed right away.
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
 - How did you decide which constraints mattered most?
 
+for my algorithm, the main consideration or filtering I did for was based on time due.
+I thought that it mattered most because I thought that it would be better to complete
+a lot of tasks instead of a few high priority tasks. there's also a chance that high
+priority tasks get knocked out in a time due schedule. quantity was prioritized over
+quality, althogh a chance for quality to be knocked out is also possible.
+
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
+
+my scheduler uses an algorithm with a bad time complexity. it sacrifices readability
+and performance for functionality. it detects conflicts by the full amount of time 
+a task is being done instead of just the times they start.
+
+this tradeoff is reasonable for this scenario because it reflects real world scenarios.
+if a task starts at 7:00 am and is 30 minutes and another task starts at 7:15 am and is
+only 15 minutes, they should be conflicting since you can't do both at 7:15 am although
+a more simpler algorithm based on exact start times would say that they aren't conflicting.
 
 ---
 
