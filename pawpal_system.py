@@ -16,15 +16,22 @@ class Task:
 
 
 class Owner:
-    def __init__(self, name: str):
+    def __init__(self, name: str, time_available: int = 0):
         self.name = name
+        self.time_available = time_available
         self.pets: list[Pet] = []
         self.tasks: list[Task] = []
 
     def add_pet(self, pet: Pet):
         pass
 
+    def remove_pet(self, pet: Pet):
+        pass
+
     def add_task(self, task: Task):
+        pass
+
+    def remove_task(self, task: Task):
         pass
 
 

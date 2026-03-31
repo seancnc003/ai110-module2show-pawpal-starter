@@ -40,3 +40,9 @@ design decisions:
     * problem: task ownership was indirect (owner -> scheduler -> tasks)
     * fix: moved task list to owner, made scheduler a stateless planning tool
     * result: owner owns their data, scheduler is reusable across multiple owners
+
+
+implementation TODOs:
+    * validate that a task's pet belongs to the owner before adding (enforce in add_task)
+    * decide how generate_plan communicates dropped tasks that don't fit in time_available
+    * decide if explain_plan needs access to the original task list or just the final plan

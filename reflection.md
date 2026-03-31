@@ -7,10 +7,31 @@
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
+my initial design has 4 main classes. the owner is the main class and the pet, task, 
+and scheduler classes are part of the owner. 
+
+the owner has a name and a list of pets and tasks. we can add pets or tasks to them.
+the owner has a class pet. the class pet has a name and animal type.
+the owner also has a class task. the task has a type of class, and a duration, priority,
+    and which pet the task is for.
+the owner also uses a class scheduler to generate tasks and explain them.
+
+
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+
+after consulting with the AI, the design did change during the implementaion. 
+
+some changes we did was editing the owner class. we added a way to remove pets
+and a time available field to help the scheduler generate tasks based on the 
+owner's time. it did suggest other changes and and potential logic bottlenecks
+but we both decided that it was better to note them and implement them later.
+
+the changes to the owner was necessary because I thought they were critical
+functionality especially removing pets and how much time a user has. they had
+to be addressed right away.
 
 ---
 

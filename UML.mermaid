@@ -1,10 +1,13 @@
 classDiagram
     class Owner {
         +String name
+        +int time_available
         +List~Pet~ pets
         +List~Task~ tasks
         +add_pet(pet: Pet)
+        +remove_pet(pet: Pet)
         +add_task(task: Task)
+        +remove_task(task: Task)
     }
 
     class Pet {
@@ -24,7 +27,7 @@ classDiagram
         +explain_plan(plan: List~Task~) String
     }
 
-    Owner "1" --> "*" Pet : has
-    Owner "1" --> "*" Task : has
-    Task "*" --> "1" Pet : for
+    Owner "one" --> "many" Pet : has
+    Owner "one" --> "many" Task : has
+    Task "many" --> "one" Pet : for
     Owner ..> Scheduler : uses
