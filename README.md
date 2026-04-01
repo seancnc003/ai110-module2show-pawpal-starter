@@ -1,36 +1,46 @@
-# PawPal+ (Module 2 Project)
+# PawPal+
 
-You are building **PawPal+**, a Streamlit app that helps a pet owner plan care tasks for their pet.
+A smart pet care planning assistant built with Python and Streamlit. PawPal+ helps pet owners organize daily care tasks across multiple pets with intelligent scheduling, conflict detection, and recurring task management.
 
-## Scenario
+## Features
 
-A busy pet owner needs help staying consistent with pet care. They want an assistant that can:
+- **Multi-pet management** -- Create an owner profile and add multiple pets with different species
+- **Task scheduling** -- Add care tasks (walks, feeding, grooming, etc.) with duration, priority, and due time
+- **Sort by time** -- Tasks are automatically sorted in chronological order using a lambda-based sort on due times
+- **Filter by status** -- Completed tasks are filtered out so only pending tasks appear in the daily plan
+- **Filter by pet** -- View tasks for a specific pet or all pets at once
+- **Recurring tasks** -- Daily and weekly tasks auto-advance their due date when completed, staying in the schedule indefinitely
+- **Conflict detection** -- Overlapping task durations are detected and surfaced as warnings (not just exact time matches)
 
-- Track pet care tasks (walks, feeding, meds, enrichment, grooming, etc.)
-- Consider constraints (time available, priority, owner preferences)
-- Produce a daily plan and explain why it chose that plan
+## Demo
 
-Your job is to design the system first (UML), then implement the logic in Python, then connect it to the Streamlit UI.
+![PawPal+ Demo](pawpal_screenshot.png)
 
-## What you will build
+## Architecture
 
-Your final app should:
+![UML Diagram](uml_final.png)
 
-- Let a user enter basic owner + pet info
-- Let a user add/edit tasks (duration + priority at minimum)
-- Generate a daily schedule/plan based on constraints and priorities
-- Display the plan clearly (and ideally explain the reasoning)
-- Include tests for the most important scheduling behaviors
+## Getting Started
 
-## Smarter Scheduling
+### Setup
 
-The Scheduler class includes the following algorithmic features:
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-- **Sort by time**: Tasks are sorted by due time using Python's `sorted()` with a lambda key, ensuring the schedule follows chronological order.
-- **Filter by status**: Completed tasks are filtered out of the daily plan so only pending tasks appear.
-- **Filter by pet**: Tasks can be viewed per pet, allowing owners to see what each pet needs individually.
-- **Recurring tasks**: Tasks with a "daily" or "weekly" frequency auto-advance their due date when completed using `timedelta`, staying in the schedule indefinitely.
-- **Conflict detection**: The scheduler checks for overlapping task durations (not just exact time matches) and returns warning messages for any conflicts found.
+### Run the app
+
+```bash
+streamlit run app.py
+```
+
+### Run the demo script
+
+```bash
+python3 main.py
+```
 
 ## Testing PawPal+
 
@@ -53,22 +63,11 @@ The tests cover 8 behaviors across happy paths and edge cases:
 
 **Confidence Level: 4/5** -- core scheduling logic is well-tested, but edge cases like invalid time formats or removing pets with active tasks are not yet covered.
 
-## Getting started
+## Architecture
 
-### Setup
+The system is built with four classes (see `UML.mermaid` for the full diagram):
 
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### Suggested workflow
-
-1. Read the scenario carefully and identify requirements and edge cases.
-2. Draft a UML diagram (classes, attributes, methods, relationships).
-3. Convert UML into Python class stubs (no logic yet).
-4. Implement scheduling logic in small increments.
-5. Add tests to verify key behaviors.
-6. Connect your logic to the Streamlit UI in `app.py`.
-7. Refine UML so it matches what you actually built.
+- **Task** -- Dataclass representing a single care activity with description, duration, priority, due time, frequency, and completion status
+- **Pet** -- Holds pet info and manages a collection of tasks
+- **Owner** -- Manages multiple pets and aggregates tasks across all of them
+- **Scheduler** -- The "brain" that retrieves tasks from the Owner, sorts, filters, detects conflicts, and generates a daily plan

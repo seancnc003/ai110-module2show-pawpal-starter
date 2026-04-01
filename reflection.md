@@ -71,10 +71,24 @@ a more simpler algorithm based on exact start times would say that they aren't c
 - How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
 - What kinds of prompts or questions were most helpful?
 
+I utilized AI (Claude Code) with tightening my design and implementation. I made sure I knew what I wanted to
+do before typing it to the AI. I made sure that my intent was caught exactly by the AI and I used it to polish 
+the intent up to. I used it to also implement the code with me reviewing it.
+
+I think clarifying prompts were the most helpful. I would mention my intent into the AI and I would ask it to 
+explain what I had just said in a way that it understood it to see if my message got through properly. 
+
 **b. Judgment and verification**
 
 - Describe one moment where you did not accept an AI suggestion as-is.
 - How did you evaluate or verify what the AI suggested?
+
+One moment where I did not accept the AI suggestion as-is was in the system design portion. I thought
+I had explained my intent properly, but when I looked at the mermaid diagram it generated, it was
+slightly different. I had to ask it to review it again.
+
+I evaluated what the AI suggested by looking at the source code directly and also looking at the 
+mermaid diagram visually.
 
 ---
 
@@ -85,10 +99,24 @@ a more simpler algorithm based on exact start times would say that they aren't c
 - What behaviors did you test?
 - Why were these tests important?
 
+I tested all the behaviors from inputting a user, inputting pets, and inputting the schedule. 
+
+These tests were important because I had to see the functionality of the program. I wanted to see
+if the happy path works and if I can successfully run the program.
+
 **b. Confidence**
 
 - How confident are you that your scheduler works correctly?
 - What edge cases would you test next if you had more time?
+
+I am pretty confident that my schedule works correctly because I had sound logic and I went over it
+with the AI.
+
+if I had more time, I would test for duplicate pet names. during the implementation, neither me nor
+the AI thought about what happens if you add two pets with the same name. the filter_by_pet method
+returns tasks for the first pet it finds with that name, so the second pet's tasks would never show
+up. this could easily happen in real life if an owner has two cats both named "Whiskers" and it
+would cause confusing behavior in the schedule.
 
 ---
 
@@ -98,10 +126,24 @@ a more simpler algorithm based on exact start times would say that they aren't c
 
 - What part of this project are you most satisfied with?
 
+I was most satisfied with the system design aspect. I think designing systems will be very important
+in the future especially with how AI will continue to imrpove. I thought creating the mermaid diagram
+was good practice.
+
 **b. What you would improve**
 
 - If you had another iteration, what would you improve or redesign?
 
+I would definitely improve the UI and design. I think Streamlit is an extremely good tool for rapid
+prototyping, but I don't think it is the best for presentation. I would redesign the frontend and 
+code it in another language.
+
+
 **c. Key takeaway**
 
 - What is one important thing you learned about designing systems or working with AI on this project?
+
+one important thing I learned about designing systems is how important it is to review the designs and
+that mermaid diagram is a useful tool for this. 
+the first design the AI gave me was not exactly what I had in mind. because me and the AI both had the
+mermaid diagram, we could collaborate on how to have it look like.

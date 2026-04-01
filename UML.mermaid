@@ -4,6 +4,7 @@ classDiagram
         +float duration
         +int priority
         +String due_time
+        +String frequency
         +bool completed
         +toggle_complete()
     }
@@ -28,7 +29,11 @@ classDiagram
 
     class Scheduler {
         +Owner owner
+        +sort_by_time(tasks: List~Task~) List~Task~
+        +filter_by_pet(pet_name: String) List~Task~
+        +filter_by_status(completed: bool) List~Task~
         +generate_plan() List~Task~
+        +detect_conflicts() List~String~
         +explain_plan(plan: List~Task~) String
     }
 
